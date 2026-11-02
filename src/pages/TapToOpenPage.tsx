@@ -25,7 +25,6 @@ function TapToOpenPage() {
           <span>Wedding</span>
           <span>Invitation</span>
         </h1>
-        <span className="absolute top-[43%] left-1/2 -translate-x-1/2 text-terracotta text-[2rem] leading-none" aria-hidden="true">✦</span>
 
         <div className="absolute top-[70%] left-0 z-[101] flex w-full justify-center">
           <video
