@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 
 export interface WhiteKeyVideoHandle {
   play: () => Promise<void>
@@ -17,6 +17,7 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
     const videoRef = useRef<HTMLVideoElement>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const callbacksRef = useRef({ onPlay, onEnded, onError })
+    const [showPoster, setShowPoster] = useState(true)
     callbacksRef.current = { onPlay, onEnded, onError }
 
     useImperativeHandle(ref, () => ({
@@ -110,12 +111,15 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR)
       gl.uniform1i(gl.getUniformLocation(program, 'uVideo'), 0)
-      gl.uniform1f(gl.getUniformLocation(program, 'uSimilarity'), 0.08)
+      gl.uniform1f(gl.getUniformLocation(program, 'uSimilarity'), 0.035)
       gl.uniform1f(gl.getUniformLocation(program, 'uBlend'), 0.16)
+      gl.enable(gl.BLEND)
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
       gl.clearColor(0, 0, 0, 0)
 
       let animationFrame = 0
       let ready = false
+      let previewPositionSet = false
 
       const renderFrame = () => {
         if (!ready || video.videoWidth === 0 || video.videoHeight === 0) return
@@ -138,10 +142,22 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       }
       const handleLoadedData = () => {
         ready = true
+        if (!previewPositionSet && video.duration > 0) {
+          previewPositionSet = true
+          video.currentTime = Math.min(0.5, video.duration / 2)
+          return
+        }
         renderFrame()
+        setShowPoster(false)
+      }
+      const handleSeeked = () => {
+        renderFrame()
+        setShowPoster(false)
       }
       const handlePlaying = () => {
-        callbacksRef.current.onPlay(video.duration)
+        callbacksRef.current.onPlay(video.duration - video.currentTime)
+        renderFrame()
+        setShowPoster(false)
         animationFrame = requestAnimationFrame(renderWhilePlaying)
       }
       const handlePause = () => cancelAnimationFrame(animationFrame)
@@ -155,6 +171,7 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       }
 
       video.addEventListener('loadeddata', handleLoadedData)
+      video.addEventListener('seeked', handleSeeked)
       video.addEventListener('playing', handlePlaying)
       video.addEventListener('pause', handlePause)
       video.addEventListener('ended', handleEnded)
@@ -164,6 +181,7 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       return () => {
         cancelAnimationFrame(animationFrame)
         video.removeEventListener('loadeddata', handleLoadedData)
+        video.removeEventListener('seeked', handleSeeked)
         video.removeEventListener('playing', handlePlaying)
         video.removeEventListener('pause', handlePause)
         video.removeEventListener('ended', handleEnded)
@@ -178,6 +196,12 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
 
     return (
       <>
+        <img
+          className={`${className} z-[99] ${showPoster ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}
+          src={`${import.meta.env.BASE_URL}RedRibbion-poster.webp`}
+          alt=""
+          aria-hidden="true"
+        />
         <canvas ref={canvasRef} className={className} aria-hidden="true" />
         <video
           ref={videoRef}
