@@ -42,7 +42,7 @@ function TapToOpenPage() {
             }}
             onError={() => setPlaybackError('The ribbon animation could not be loaded.')}
           >
-            <source src="/RedRibbion.webm" type="video/webm" />
+            <source src={`${import.meta.env.BASE_URL}RedRibbion.webm`} type="video/webm" />
           </video>
           <button
             className="relative z-[1] pointer-events-auto w-[min(86%,360px)] min-h-28 border-2 border-gold/[64%] bg-[rgb(255_246_229_/_98%)] shadow-[0_12px_22px_rgb(75_33_17_/_19%),inset_0_0_0_5px_rgb(255_255_255_/_54%)] text-maroon cursor-pointer font-['Cormorant_Garamond',Georgia,serif] text-[clamp(2rem,7vw,3.25rem)] leading-none font-semibold transition-[background-color,box-shadow,transform] duration-200 before:absolute before:inset-[9px] before:border before:border-maroon/[72%] before:content-[''] before:pointer-events-none hover:-translate-y-0.5 hover:bg-[#fff8eb] hover:shadow-[0_15px_26px_rgb(75_33_17_/_24%),inset_0_0_0_5px_rgb(255_255_255_/_65%)] focus-visible:outline-3 focus-visible:outline-offset-[5px] focus-visible:outline-terracotta motion-reduce:transition-none"
