@@ -1,0 +1,9 @@
+- main [ref=f6e4]:
+  - region "Wedding invitation" [ref=f6e5]:
+    - paragraph [ref=f6e6]: Together with their families
+    - heading "Our Wedding Invitation" [level=1] [ref=f6e7]:
+      - generic [ref=f6e8]: Our
+      - generic [ref=f6e9]: Wedding
+      - generic [ref=f6e10]: Invitation
+    - generic [aria-hidden] [ref=f6e11]: ✦
+    - button "Tap to Open" [ref=f6e13] [cursor=pointer]
