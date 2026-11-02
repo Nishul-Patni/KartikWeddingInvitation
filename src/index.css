@@ -1,0 +1,26 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+@theme {
+  --color-terracotta: #9B432B;
+  --color-maroon: #8F321F;
+  --color-cream: #F6E8D2;
+  --color-parchment: #EEDCC2;
+  --color-gold: #B58A50;
+  --color-sage: #899B78;
+}
