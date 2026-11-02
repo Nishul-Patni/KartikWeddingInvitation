@@ -1,21 +1,45 @@
 import { useRef, useState } from 'react'
 
-function TapToOpenPage() {
+interface TapToOpenPageProps {
+  onOpenStart: (durationMs: number) => void
+  onOpenComplete: () => void
+}
+
+function TapToOpenPage({ onOpenStart, onOpenComplete }: TapToOpenPageProps) {
   const ribbonRef = useRef<HTMLVideoElement>(null)
+  const songRef = useRef<HTMLAudioElement>(null)
   const [playbackError, setPlaybackError] = useState<string | null>(null)
+  const [isOpening, setIsOpening] = useState(false)
 
   const handleOpen = () => {
     const ribbon = ribbonRef.current
     if (!ribbon) return
 
     setPlaybackError(null)
+    const song = songRef.current
+    if (song) {
+      void song.play().catch(() => setPlaybackError('The music could not be played.'))
+    }
+
+    setIsOpening(true)
     void ribbon.play().catch(() => {
+      setIsOpening(false)
       setPlaybackError('The ribbon animation could not be played. Tap to try again.')
     })
   }
 
   return (
     <main className="relative isolate grid min-h-full min-h-dvh place-items-center overflow-hidden bg-parchment bg-[url('/initial-bg-image.png')] bg-cover bg-center bg-no-repeat px-6 py-[clamp(32px,6vh,64px)] before:absolute before:-z-10 before:inset-[clamp(12px,2.4vw,28px)] before:border before:border-maroon/[62%] before:content-[''] after:absolute after:-z-10 after:inset-[clamp(17px,3vw,36px)] after:border after:border-maroon/[24%] after:content-['']">
+      <audio
+        ref={songRef}
+        className="hidden"
+        autoPlay
+        preload="auto"
+        aria-hidden="true"
+        onError={() => setPlaybackError('The music could not be loaded.')}
+      >
+        <source src={`${import.meta.env.BASE_URL}VaroonTrimmed.mp3`} type="audio/mpeg" />
+      </audio>
       <section className="pointer-events-none absolute inset-0 text-center" aria-label="Wedding invitation">
         <p className="absolute top-[6%] left-1/2 w-max max-w-[calc(100%_-_40px)] -translate-x-1/2 text-terracotta text-[clamp(0.7rem,2.5vw,0.9rem)] tracking-[0.22em] uppercase">
           Together with their families
@@ -30,22 +54,35 @@ function TapToOpenPage() {
           <video
             ref={ribbonRef}
             className="pointer-events-none fixed top-[calc(60dvh_-_39.4vw)] left-1/2 z-[100] block h-auto w-screen max-w-none -translate-x-1/2"
-            loop
             muted
             playsInline
             preload="auto"
             aria-hidden="true"
+            onPlay={(event) => {
+              const ribbon = event.currentTarget
+              const remainingDuration = ribbon.duration - ribbon.currentTime
+              onOpenStart(
+                Number.isFinite(remainingDuration) && remainingDuration > 0
+                  ? remainingDuration * 1000
+                  : 2700,
+              )
+            }}
+            onEnded={onOpenComplete}
             onLoadedMetadata={(event) => {
               const ribbon = event.currentTarget
               if (ribbon.duration > 0) ribbon.currentTime = Math.min(0.5, ribbon.duration / 2)
             }}
-            onError={() => setPlaybackError('The ribbon animation could not be loaded.')}
+            onError={() => {
+              setIsOpening(false)
+              setPlaybackError('The ribbon animation could not be loaded.')
+            }}
           >
             <source src={`${import.meta.env.BASE_URL}RedRibbion.webm`} type="video/webm" />
           </video>
           <button
             className="relative z-[1] pointer-events-auto w-[min(86%,360px)] min-h-28 border-2 border-gold/[64%] bg-[rgb(255_246_229_/_98%)] shadow-[0_12px_22px_rgb(75_33_17_/_19%),inset_0_0_0_5px_rgb(255_255_255_/_54%)] text-maroon cursor-pointer font-['Cormorant_Garamond',Georgia,serif] text-[clamp(2rem,7vw,3.25rem)] leading-none font-semibold transition-[background-color,box-shadow,transform] duration-200 before:absolute before:inset-[9px] before:border before:border-maroon/[72%] before:content-[''] before:pointer-events-none hover:-translate-y-0.5 hover:bg-[#fff8eb] hover:shadow-[0_15px_26px_rgb(75_33_17_/_24%),inset_0_0_0_5px_rgb(255_255_255_/_65%)] focus-visible:outline-3 focus-visible:outline-offset-[5px] focus-visible:outline-terracotta motion-reduce:transition-none"
             type="button"
+            disabled={isOpening}
             onClick={handleOpen}
           >
             <span className="relative z-[2]">Tap to Open</span>

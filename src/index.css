@@ -36,6 +36,34 @@ body,
   scrollbar-color: rgb(143 50 31 / 35%) transparent;
 }
 
+.invitation-scenes {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.invitation-scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.025);
+  transition:
+    opacity 1100ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1100ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.invitation-scene.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.invitation-opening {
+  z-index: 1;
+}
+
 .invitation-wash {
   background: linear-gradient(
     180deg,
@@ -124,5 +152,10 @@ body,
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+  }
+
+  .invitation-scene {
+    transition-duration: 1ms;
+    transform: none;
   }
 }
