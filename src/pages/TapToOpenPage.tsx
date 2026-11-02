@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import WhiteKeyVideo, { type WhiteKeyVideoHandle } from '../components/WhiteKeyVideo'
 
 interface TapToOpenPageProps {
   onOpenStart: (durationMs: number) => void
@@ -6,14 +7,17 @@ interface TapToOpenPageProps {
 }
 
 function TapToOpenPage({ onOpenStart, onOpenComplete }: TapToOpenPageProps) {
-  const ribbonRef = useRef<HTMLVideoElement>(null)
+  const ribbonRef = useRef<WhiteKeyVideoHandle>(null)
   const songRef = useRef<HTMLAudioElement>(null)
   const [playbackError, setPlaybackError] = useState<string | null>(null)
   const [isOpening, setIsOpening] = useState(false)
 
   const handleOpen = () => {
     const ribbon = ribbonRef.current
-    if (!ribbon) return
+    if (!ribbon) {
+      setPlaybackError('The ribbon animation is not available.')
+      return
+    }
 
     setPlaybackError(null)
     const song = songRef.current
@@ -51,36 +55,25 @@ function TapToOpenPage({ onOpenStart, onOpenComplete }: TapToOpenPageProps) {
         </h1>
 
         <div className="absolute top-[70%] left-0 z-[101] flex w-full justify-center">
-          <video
+          <WhiteKeyVideo
             ref={ribbonRef}
-            className="pointer-events-none fixed top-[calc(60dvh_-_39.4vw)] left-1/2 z-[100] block h-auto w-screen max-w-none -translate-x-1/2"
-            muted
-            playsInline
-            preload="auto"
-            aria-hidden="true"
-            onPlay={(event) => {
-              const ribbon = event.currentTarget
-              const remainingDuration = ribbon.duration - ribbon.currentTime
+            className="pointer-events-none fixed top-[calc(60dvh_-_25vw)] left-1/2 z-[100] block h-auto w-screen max-w-none -translate-x-1/2"
+            src={`${import.meta.env.BASE_URL}RedRibbion.mp4`}
+            onPlay={(duration) => {
               onOpenStart(
-                Number.isFinite(remainingDuration) && remainingDuration > 0
-                  ? remainingDuration * 1000
+                Number.isFinite(duration) && duration > 0
+                  ? duration * 1000
                   : 2700,
               )
             }}
-            onEnded={onOpenComplete}
-            onLoadedMetadata={(event) => {
-              const ribbon = event.currentTarget
-              if (ribbon.duration > 0) ribbon.currentTime = Math.min(0.5, ribbon.duration / 2)
-            }}
-            onError={() => {
+            onEnded={() => onOpenComplete()}
+            onError={(message) => {
               setIsOpening(false)
-              setPlaybackError('The ribbon animation could not be loaded.')
+              setPlaybackError(message)
             }}
-          >
-            <source src={`${import.meta.env.BASE_URL}RedRibbion.webm`} type="video/webm" />
-          </video>
+          />
           <button
-            className="relative z-[1] pointer-events-auto w-[min(86%,360px)] min-h-28 border-2 border-gold/[64%] bg-[rgb(255_246_229_/_98%)] shadow-[0_12px_22px_rgb(75_33_17_/_19%),inset_0_0_0_5px_rgb(255_255_255_/_54%)] text-maroon cursor-pointer font-['Cormorant_Garamond',Georgia,serif] text-[clamp(2rem,7vw,3.25rem)] leading-none font-semibold transition-[background-color,box-shadow,transform] duration-200 before:absolute before:inset-[9px] before:border before:border-maroon/[72%] before:content-[''] before:pointer-events-none hover:-translate-y-0.5 hover:bg-[#fff8eb] hover:shadow-[0_15px_26px_rgb(75_33_17_/_24%),inset_0_0_0_5px_rgb(255_255_255_/_65%)] focus-visible:outline-3 focus-visible:outline-offset-[5px] focus-visible:outline-terracotta motion-reduce:transition-none"
+            className="relative z-[1] pointer-events-auto w-[min(86%,360px)] min-h-28 border-2 border-gold/[64%] bg-[rgb(255_246_229_/_98%)] shadow-[0_12px_22px_rgb(75_33_17_/_19%),inset_0_0_0_5px_rgb(255_255_255_/_54%)] text-maroon cursor-pointer font-['Cormorant_Garamond',Georgia,serif] text-[clamp(2rem,7vw,3.25rem)] leading-none font-semibold transition-[background-color,box-shadow,transform] duration-200 before:absolute before:inset-[9px] before:border before:border-maroon/72 before:content-[''] before:pointer-events-none hover:-translate-y-0.5 hover:bg-[#fff8eb] hover:shadow-[0_15px_26px_rgb(75_33_17/24%),inset_0_0_0_5px_rgb(255_255_255/65%)] focus-visible:outline-3 focus-visible:outline-offset-[5px] focus-visible:outline-terracotta motion-reduce:transition-none"
             type="button"
             disabled={isOpening}
             onClick={handleOpen}
