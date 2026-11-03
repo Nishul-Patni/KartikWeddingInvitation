@@ -25,7 +25,7 @@ function MainPage() {
         <main ref={scrollContainerRef} className="invitation-page relative h-[100svh] w-full overflow-x-hidden overflow-y-auto">
             <section
                 className="invitation-hero relative isolate flex h-[100svh] min-h-[100svh] w-full flex-col items-center gap-2 overflow-hidden text-center text-maroon"
-                style={{ backgroundImage: `url("${publicAsset("first-page.png")}")` }}
+                style={{ backgroundImage: `url("${publicAsset("first-page.webp")}")` }}
             >
                 <div aria-hidden="true" className="invitation-wash absolute inset-0" />
                 <div aria-hidden="true" className="invitation-frame absolute inset-[10px] sm:inset-[18px]" />
@@ -77,7 +77,7 @@ function MainPage() {
                     <div className="invitation-couple relative mt-auto flex min-h-[clamp(140px,22svh,240px)] w-full flex-1 items-end justify-center pt-2">
                         <img
                             className="invitation-portrait h-auto max-h-[min(36svh,320px)] w-auto max-w-[min(82vw,400px)] object-contain object-bottom"
-                            src={publicAsset("groom-bride.png")}
+                            src={publicAsset("groom-bride.webp")}
                             alt="Illustration of Kartik and Priyanka in their wedding attire"
                         />
                     </div>

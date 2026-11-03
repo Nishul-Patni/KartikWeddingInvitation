@@ -48,15 +48,15 @@ function EventReveal({ children, className = "", frame = "cream", label }: Event
                     media="(max-width: 650px)"
                     srcSet={publicAsset(
                         frame === "maroon"
-                            ? "Ornate-Maroon-and-Gold-Card-Frame-Potrait.png"
-                            : "Ornate-Cream-Frame-Potrait.png",
+                            ? "Ornate-Maroon-and-Gold-Card-Frame-Potrait.webp"
+                            : "Ornate-Cream-Frame-Potrait.webp",
                     )}
                 />
                 <img
                     src={publicAsset(
                         frame === "maroon"
-                            ? "Ornate-Maroon-and-Gold-Card-Frame.png"
-                            : "Ornate-Cream-Frame.png",
+                            ? "Ornate-Maroon-and-Gold-Card-Frame.webp"
+                            : "Ornate-Cream-Frame.webp",
                     )}
                     alt=""
                 />
@@ -99,19 +99,19 @@ function EventsPage() {
         >
             <img
                 className="events-background"
-                src={publicAsset("events-page-background.png")}
+                src={publicAsset("events-page-background.webp")}
                 alt=""
                 aria-hidden="true"
             />
             <img
                 className="events-flower events-flower-left"
-                src={publicAsset("flower-border-with-bell-left.png")}
+                src={publicAsset("flower-border-with-bell-left.webp")}
                 alt=""
                 aria-hidden="true"
             />
             <img
                 className="events-flower events-flower-right"
-                src={publicAsset("flower-border-right.png")}
+                src={publicAsset("flower-border-right.webp")}
                 alt=""
                 aria-hidden="true"
             />
@@ -133,7 +133,7 @@ function EventsPage() {
                 <EventReveal label="22 November 2026: Ganesh Pooja and Suwal Patha">
                     <div className="event-art">
                         <img
-                            src={publicAsset("ganesh-ji-icon.png")}
+                            src={publicAsset("ganesh-ji-icon.webp")}
                             alt=""
                             aria-hidden="true"
                         />
@@ -163,7 +163,7 @@ function EventsPage() {
                 <EventReveal label="23 November 2026: Haldi and Mehendi">
                     <div className="event-art">
                         <img
-                            src={publicAsset("haldi-mahendi-icon.png")}
+                            src={publicAsset("haldi-mahendi-icon.webp")}
                             alt=""
                             aria-hidden="true"
                         />
@@ -198,7 +198,7 @@ function EventsPage() {
                 >
                     <div className="wedding-day-art">
                         <img
-                            src={publicAsset("wedding-day-icon.png")}
+                            src={publicAsset("wedding-day-icon.webp")}
                             alt=""
                             aria-hidden="true"
                         />
@@ -249,7 +249,7 @@ function EventsPage() {
                 <EventReveal label="25 November 2026: Wedding Reception">
                     <div className="event-art">
                         <img
-                            src={publicAsset("reception-icon.png")}
+                            src={publicAsset("reception-icon.webp")}
                             alt=""
                             aria-hidden="true"
                         />

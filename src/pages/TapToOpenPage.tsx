@@ -33,7 +33,10 @@ function TapToOpenPage({ onOpenStart, onOpenComplete }: TapToOpenPageProps) {
   }
 
   return (
-    <main className="relative isolate grid min-h-full min-h-dvh place-items-center overflow-hidden bg-parchment bg-[url('/initial-bg-image.png')] bg-cover bg-center bg-no-repeat px-6 py-[clamp(32px,6vh,64px)] before:absolute before:-z-10 before:inset-[clamp(12px,2.4vw,28px)] before:border before:border-maroon/[62%] before:content-[''] after:absolute after:-z-10 after:inset-[clamp(17px,3vw,36px)] after:border after:border-maroon/[24%] after:content-['']">
+  <main
+    className="relative isolate grid min-h-full min-h-dvh place-items-center overflow-hidden bg-parchment bg-cover bg-center bg-no-repeat px-6 py-[clamp(32px,6vh,64px)] before:absolute before:-z-10 before:inset-[clamp(12px,2.4vw,28px)] before:border before:border-maroon/[62%] before:content-[''] after:absolute after:-z-10 after:inset-[clamp(17px,3vw,36px)] after:border after:border-maroon/[24%] after:content-['']"
+    style={{ backgroundImage: `url("${import.meta.env.BASE_URL}initial-bg-image.webp")` }}
+  >
       <audio
         ref={songRef}
         className="hidden"

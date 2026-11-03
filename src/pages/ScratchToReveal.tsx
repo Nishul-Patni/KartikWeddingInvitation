@@ -189,7 +189,7 @@ function ScratchToReveal() {
             id="wedding-date"
             ref={sectionRef}
             className={`scratch-reveal relative isolate flex min-h-[100svh] w-full flex-col items-center overflow-hidden px-5 pb-12 pt-[clamp(36px,8vh,84px)] text-center text-maroon sm:px-8 ${isInView ? "is-in-view" : ""}`}
-            style={{ backgroundImage: `url("${publicAsset("scratch-to-reveal-bg-image.png")}")` }}
+            style={{ backgroundImage: `url("${publicAsset("scratch-to-reveal-bg-image.webp")}")` }}
             aria-labelledby="scratch-reveal-title"
         >
             <div aria-hidden="true" className="scratch-reveal-wash absolute inset-0" />
@@ -197,7 +197,7 @@ function ScratchToReveal() {
             <header className="scratch-reveal-heading relative z-10 flex flex-col items-center">
                 <img
                     className="scratch-reveal-mountain h-auto w-[clamp(100px,17vw,190px)] object-contain"
-                    src={publicAsset("mountain.png")}
+                    src={publicAsset("mountain.webp")}
                     alt=""
                 />
                 <span aria-hidden="true" className="mt-2 h-px w-[clamp(150px,34vw,300px)] bg-maroon/50" />
@@ -220,7 +220,7 @@ function ScratchToReveal() {
             <div className="scratch-reveal-card relative z-10 mt-5 w-[min(88vw,560px)] aspect-[1609/977] sm:mt-6">
                 <img
                     className="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain"
-                    src={publicAsset("scratch-here-frame.png")}
+                    src={publicAsset("scratch-here-frame.webp")}
                     alt=""
                     draggable="false"
                 />
@@ -245,7 +245,7 @@ function ScratchToReveal() {
                     <div className={`scratch-reveal-prompt pointer-events-none absolute inset-x-[8%] top-[23%] z-40 flex h-[54%] w-[84%] flex-col items-center justify-center ${hasStarted ? "is-scratching" : ""}`}>
                         <img
                             className="scratch-reveal-icon h-[clamp(38px,8vw,72px)] w-[clamp(38px,8vw,72px)] object-contain"
-                            src={publicAsset("scratch-icon.png")}
+                            src={publicAsset("scratch-icon.webp")}
                             alt=""
                         />
                         <span className="mt-1 font-['Cormorant_Garamond',Georgia,serif] text-[clamp(1.25rem,4vw,2rem)] font-semibold italic leading-tight text-[#742d20]">
