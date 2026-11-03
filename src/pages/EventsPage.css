@@ -1,0 +1,685 @@
+.events-page {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 100svh;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: clamp(88px, 11vw, 142px) clamp(18px, 5vw, 76px) 100px;
+  color: #64281f;
+  background-color: #faeddb;
+}
+
+.events-background {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.78;
+  pointer-events: none;
+  user-select: none;
+}
+
+.events-flower {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  width: clamp(160px, 30vw, 390px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.events-flower-left {
+  left: 0;
+}
+
+.events-flower-right {
+  right: 0;
+}
+
+.events-header {
+  width: min(100%, 900px);
+  margin-bottom: clamp(28px, 4vw, 48px);
+  text-align: center;
+  text-shadow: 0 1px 12px rgb(255 243 224 / 78%);
+}
+
+.events-eyebrow {
+  color: #8d4635;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(0.82rem, 2vw, 1.02rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.events-header h2 {
+  margin-top: 5px;
+  color: #74251f;
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(3rem, 8vw, 5.3rem);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.events-intro {
+  margin-top: 6px;
+  color: #74251f;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.05rem, 2.8vw, 1.42rem);
+  font-style: italic;
+}
+
+.events-divider {
+  display: flex;
+  width: min(230px, 58vw);
+  align-items: center;
+  gap: 12px;
+  margin: 15px auto 0;
+  color: #9e3028;
+}
+
+.events-divider span:first-child,
+.events-divider span:last-child {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, #b95e45);
+}
+
+.events-divider span:last-child {
+  transform: rotate(180deg);
+}
+
+.events-divider span:nth-child(2) {
+  font-size: 0.9rem;
+}
+
+.events-list {
+  display: flex;
+  width: min(100%, 1160px);
+  flex-direction: column;
+  gap: 5px;
+}
+
+.events-entry {
+  position: relative;
+  display: grid;
+  min-height: 260px;
+  grid-template-columns: minmax(155px, 0.76fr) minmax(220px, 1fr) minmax(280px, 1.3fr);
+  align-items: center;
+  gap: clamp(14px, 2.4vw, 32px);
+  overflow: hidden;
+  padding: clamp(18px, 2.6vw, 32px);
+  background: transparent;
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 1150ms cubic-bezier(0.2, 0.7, 0.25, 1),
+    transform 1150ms cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.events-entry > :not(.events-card-frame) {
+  position: relative;
+  z-index: 1;
+}
+
+.events-card-frame {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.events-card-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.events-entry.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.event-art {
+  display: flex;
+  min-width: 0;
+  height: 170px;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid rgb(173 108 53 / 42%);
+  padding-right: clamp(10px, 2vw, 24px);
+}
+
+.event-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 5px rgb(115 62 25 / 13%));
+}
+
+.event-copy,
+.event-details {
+  min-width: 0;
+}
+
+@media (min-width: 651px) {
+  .events-entry:not(.wedding-day-card) .events-card-frame img {
+    position: absolute;
+    inset-block-start: -14%;
+    height: 128%;
+  }
+
+  .events-entry:not(.wedding-day-card) .event-copy h3 {
+    font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+  }
+
+  .events-entry:not(.wedding-day-card) .event-description {
+    font-size: clamp(0.95rem, 1.35vw, 1.08rem);
+  }
+}
+
+.events-date {
+  display: inline-flex;
+  min-height: 27px;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  background: #f7d6a8;
+  padding: 4px 11px;
+  color: #7d2a20;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.events-date svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.event-copy h3,
+.wedding-day-heading h3 {
+  margin-top: 8px;
+  color: #79251f;
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(1.8rem, 3.3vw, 2.7rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.event-description {
+  margin-top: 6px;
+  color: #76493c;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1rem, 1.7vw, 1.2rem);
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.event-details ul {
+  display: grid;
+  gap: 9px;
+  list-style: none;
+}
+
+.event-details li {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  align-items: baseline;
+  gap: 4px 7px;
+  color: #392722;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(0.95rem, 1.55vw, 1.1rem);
+  line-height: 1.25;
+}
+
+.event-detail-title {
+  font-weight: 700;
+}
+
+.event-details li::before {
+  grid-row: 1 / span 2;
+  align-self: center;
+  color: #9a3329;
+  content: "◷";
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+}
+
+.event-details li {
+  grid-template-columns: 19px max-content 1fr;
+}
+
+.event-details li > :first-child {
+  grid-column: 2;
+}
+
+.event-details li > :nth-child(2) {
+  grid-column: 3;
+}
+
+.event-details li.haldi-detail {
+  grid-template-columns: 19px max-content 1fr;
+}
+
+.event-note {
+  grid-column: 2 / -1;
+  justify-self: start;
+  border-radius: 999px;
+  background: #f7d99c;
+  padding: 2px 9px;
+  color: #704324;
+  font-size: 0.83em;
+  font-style: italic;
+  line-height: 1.15;
+}
+
+.events-venue {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin-top: 12px;
+  color: #78271f;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.events-venue svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.wedding-day-card {
+  grid-template-columns: minmax(190px, 0.65fr) minmax(0, 1.75fr);
+  grid-template-areas:
+    "art heading"
+    "art timeline"
+    "footer footer";
+  gap: 14px clamp(18px, 4vw, 54px);
+  color: #fff1d2;
+  padding: clamp(22px, 3.5vw, 42px);
+}
+
+.wedding-day-art {
+  grid-area: art;
+  display: flex;
+  min-height: 280px;
+  align-items: center;
+  justify-content: center;
+}
+
+.wedding-day-art img {
+  width: 100%;
+  max-height: 370px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 10px rgb(29 6 9 / 35%));
+}
+
+.wedding-day-heading {
+  grid-area: heading;
+  text-align: center;
+}
+
+.wedding-day-heading .events-date {
+  background: #ffe4af;
+  color: #74251f;
+}
+
+.wedding-day-heading h3 {
+  margin-top: 5px;
+  color: #ffe7b5;
+  font-size: clamp(2.5rem, 5.3vw, 4.2rem);
+}
+
+.wedding-day-heading > p:last-child {
+  margin-top: 3px;
+  color: #ffe8c7;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-style: italic;
+}
+
+.wedding-timeline {
+  position: relative;
+  grid-area: timeline;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  gap: 8px;
+  list-style: none;
+  padding-top: 9px;
+}
+
+.wedding-timeline::before {
+  position: absolute;
+  top: 28px;
+  right: 12.5%;
+  left: 12.5%;
+  border-top: 1px dashed rgb(255 222 165 / 80%);
+  content: "";
+}
+
+.wedding-timeline li {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #fff0d6;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(0.9rem, 1.55vw, 1.1rem);
+  line-height: 1.12;
+  text-align: center;
+}
+
+.timeline-motif {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  margin-bottom: 4px;
+  border: 1px solid #8a292b;
+  border-radius: 50%;
+  background: #ffe0a2;
+  color: #82272a;
+  font-size: 1.35rem;
+  box-shadow: 0 0 0 4px rgb(255 223 160 / 12%);
+}
+
+.wedding-timeline strong {
+  color: #ffe2aa;
+  font-size: clamp(0.9rem, 1.5vw, 1.08rem);
+}
+
+.wedding-timeline small {
+  color: rgb(255 238 209 / 78%);
+  font-size: 0.82em;
+}
+
+.wedding-day-footer {
+  grid-area: footer;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 7px 22px;
+  border-top: 1px solid rgb(255 223 165 / 55%);
+  padding-top: 12px;
+  text-align: center;
+}
+
+.wedding-day-footer .events-venue {
+  margin-top: 0;
+  color: #ffe6bc;
+}
+
+.baraat-route {
+  color: #fff0d6;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(0.98rem, 1.6vw, 1.15rem);
+  font-style: italic;
+}
+
+.baraat-route a,
+.events-map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgb(255 216 160 / 68%);
+  text-underline-offset: 3px;
+}
+
+.baraat-route a svg,
+.events-map-link svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.events-map-link {
+  margin-top: 10px;
+  border-radius: 999px;
+  background: #8b2926;
+  padding: 7px 12px;
+  color: #fff2dd;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.98rem;
+  text-decoration: none;
+  transition: background-color 200ms ease, transform 200ms ease;
+}
+
+.events-map-link:hover {
+  background: #6f1e20;
+  transform: translateY(-1px);
+}
+
+.events-map-link:focus-visible,
+.baraat-route a:focus-visible {
+  border-radius: 3px;
+  outline: 2px solid #8f321f;
+  outline-offset: 3px;
+}
+
+.wedding-day-card .baraat-route a:focus-visible {
+  outline-color: #ffe3b2;
+}
+
+.reception-details {
+  padding-left: 4px;
+}
+
+@media (max-width: 850px) {
+  .events-entry:not(.wedding-day-card) {
+    grid-template-columns: minmax(135px, 0.7fr) minmax(180px, 1fr) minmax(235px, 1.25fr);
+    gap: 16px;
+    padding: 22px;
+  }
+
+  .event-art {
+    height: 145px;
+  }
+}
+
+@media (max-width: 650px) {
+  .events-page {
+    padding: 82px 16px 70px;
+  }
+
+  .events-flower {
+    width: clamp(125px, 36vw, 190px);
+  }
+
+  .events-header {
+    margin-bottom: 25px;
+    padding-inline: 8px;
+  }
+
+  .events-eyebrow {
+    max-width: 300px;
+    margin-inline: auto;
+    font-size: 0.7rem;
+    letter-spacing: 0.13em;
+  }
+
+  .events-header h2 {
+    margin-top: 10px;
+    font-size: clamp(2.8rem, 13vw, 4rem);
+    line-height: 1;
+  }
+
+  .events-intro {
+    max-width: 330px;
+    margin: 10px auto 0;
+    font-size: 1.08rem;
+  }
+
+  .events-entry:not(.wedding-day-card) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+    min-height: 0;
+    padding: 8% 12% 9%;
+  }
+
+  .event-art {
+    height: clamp(115px, 35vw, 165px);
+    border-right: 0;
+    border-bottom: 1px solid rgb(173 108 53 / 38%);
+    padding: 0 0 8px;
+  }
+
+  .event-art img {
+    max-width: 235px;
+  }
+
+  .event-copy {
+    text-align: center;
+  }
+
+  .event-copy h3 {
+    font-size: clamp(2rem, 8vw, 2.55rem);
+  }
+
+  .event-description {
+    max-width: 340px;
+    margin: 6px auto 0;
+    font-size: 1.08rem;
+  }
+
+  .event-details {
+    width: min(100%, 380px);
+    margin-inline: auto;
+    padding-top: 3px;
+  }
+
+  .event-details li {
+    font-size: 1.02rem;
+  }
+
+  .events-venue {
+    margin-top: 11px;
+    font-size: 1.08rem;
+  }
+
+  .wedding-day-card {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "art"
+      "heading"
+      "timeline"
+      "footer";
+    gap: 10px;
+    padding: 7% 11% 8%;
+  }
+
+  .wedding-day-art {
+    min-height: 0;
+    height: clamp(160px, 48vw, 220px);
+  }
+
+  .wedding-day-art img {
+    width: min(100%, 275px);
+    max-height: 100%;
+  }
+
+  .wedding-day-heading h3 {
+    font-size: clamp(2.8rem, 12vw, 3.7rem);
+  }
+
+  .wedding-timeline {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 6px 0;
+  }
+
+  .wedding-timeline::before {
+    top: 30px;
+    right: auto;
+    bottom: 30px;
+    left: 19px;
+    border-top: 0;
+    border-left: 1px dashed rgb(255 222 165 / 80%);
+  }
+
+  .wedding-timeline li {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: center;
+    column-gap: 12px;
+    padding: 7px 0;
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .timeline-motif {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+  }
+
+  .wedding-timeline strong,
+  .wedding-timeline li > span:not(.timeline-motif),
+  .wedding-timeline small {
+    grid-column: 2;
+  }
+
+  .wedding-day-footer {
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 11px;
+  }
+
+  .wedding-day-footer .events-venue {
+    justify-content: center;
+    text-align: left;
+  }
+
+  .reception-details {
+    padding-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .events-entry,
+  .events-map-link {
+    transform: none;
+    transition-duration: 1ms;
+  }
+}

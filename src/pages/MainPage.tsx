@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import EventsPage from "./EventsPage";
 import ScratchToReveal from "./ScratchToReveal";
 
 function MainPage() {
@@ -100,6 +101,7 @@ function MainPage() {
                 </svg>
             </a>
             <ScratchToReveal />
+            <EventsPage />
         </main>
     );
 }
