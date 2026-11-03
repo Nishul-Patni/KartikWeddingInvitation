@@ -122,6 +122,12 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       let ready = false
       let hasReportedReady = false
 
+      const reportReady = () => {
+        if (hasReportedReady) return
+        hasReportedReady = true
+        callbacksRef.current.onReady()
+      }
+
       const renderFrame = () => {
         if (!ready || video.videoWidth === 0 || video.videoHeight === 0) return
         if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
@@ -144,12 +150,14 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       const handleLoadedData = () => {
         ready = true
         renderFrame()
-        if (!hasReportedReady) {
-          hasReportedReady = true
-          callbacksRef.current.onReady()
-        }
+        reportReady()
       }
-      const handleCanPlay = () => handleLoadedData()
+      const handleLoadedMetadata = () => reportReady()
+      const handleCanPlay = () => {
+        ready = true
+        renderFrame()
+        reportReady()
+      }
       const handlePlaying = () => {
         callbacksRef.current.onPlay(video.duration - video.currentTime)
         renderFrame()
@@ -167,16 +175,21 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       }
       video.addEventListener('loadeddata', handleLoadedData)
       video.addEventListener('loadeddata', handleLoadedData)
+      video.addEventListener('loadedmetadata', handleLoadedMetadata)
       video.addEventListener('canplay', handleCanPlay)
       video.addEventListener('playing', handlePlaying)
       video.addEventListener('pause', handlePause)
       video.addEventListener('ended', handleEnded)
       video.addEventListener('error', handleError)
+      if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
+        handleLoadedMetadata()
+      }
       if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) handleLoadedData()
 
       return () => {
         cancelAnimationFrame(animationFrame)
         video.removeEventListener('loadeddata', handleLoadedData)
+        video.removeEventListener('loadedmetadata', handleLoadedMetadata)
         video.removeEventListener('canplay', handleCanPlay)
         video.removeEventListener('playing', handlePlaying)
         video.removeEventListener('pause', handlePause)
