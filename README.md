@@ -1,5 +1,10 @@
 # React + TypeScript + Vite
 
+## Deployment
+
+- **Vercel:** Use the Vite preset, build command `npm run build`, and output directory `dist`. The default build uses `/` as the base path.
+- **GitHub Pages:** Run `npm run deploy`. Its predeploy step builds with the `/KartikWeddingInvitation/` base path before publishing `dist`.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
