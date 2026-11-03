@@ -1,5 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 
+const POSTER_FRAME_TIME_SECONDS = 0.5
+
 export interface WhiteKeyVideoHandle {
   play: () => Promise<void>
 }
@@ -19,12 +21,14 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const callbacksRef = useRef({ onPlay, onReady, onEnded, onError })
     const [showPoster, setShowPoster] = useState(true)
+    const [showVideoCanvas, setShowVideoCanvas] = useState(false)
     callbacksRef.current = { onPlay, onReady, onEnded, onError }
 
     useImperativeHandle(ref, () => ({
       play: () => {
         const video = videoRef.current
         if (!video) return Promise.reject(new Error('The ribbon video is unavailable.'))
+        video.currentTime = POSTER_FRAME_TIME_SECONDS
         return video.play()
       },
     }), [])
@@ -119,8 +123,21 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       gl.clearColor(0, 0, 0, 0)
 
       let animationFrame = 0
+      let videoFrameCallback = 0
       let ready = false
       let hasReportedReady = false
+      let hasRenderedPlaybackFrame = false
+
+      const cancelRenderLoop = () => {
+        cancelAnimationFrame(animationFrame)
+        if (
+          videoFrameCallback !== 0 &&
+          typeof video.cancelVideoFrameCallback === 'function'
+        ) {
+          video.cancelVideoFrameCallback(videoFrameCallback)
+          videoFrameCallback = 0
+        }
+      }
 
       const reportReady = () => {
         if (hasReportedReady) return
@@ -129,7 +146,12 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       }
 
       const renderFrame = () => {
-        if (!ready || video.videoWidth === 0 || video.videoHeight === 0) return
+        if (
+          (!ready && video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) ||
+          video.videoWidth === 0 ||
+          video.videoHeight === 0
+        ) return false
+        ready = true
         if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
           canvas.width = video.videoWidth
           canvas.height = video.videoHeight
@@ -139,12 +161,25 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video)
         gl.clear(gl.COLOR_BUFFER_BIT)
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
+        return true
       }
 
-      const renderWhilePlaying = () => {
-        renderFrame()
+      const renderPlaybackFrame = () => {
+        if (!renderFrame() || hasRenderedPlaybackFrame) return
+        hasRenderedPlaybackFrame = true
+        setShowVideoCanvas(true)
+        setShowPoster(false)
+      }
+      const renderOnVideoFrame: VideoFrameRequestCallback = () => {
+        renderPlaybackFrame()
         if (!video.paused && !video.ended) {
-          animationFrame = requestAnimationFrame(renderWhilePlaying)
+          videoFrameCallback = video.requestVideoFrameCallback(renderOnVideoFrame)
+        }
+      }
+      const renderOnAnimationFrame = () => {
+        renderPlaybackFrame()
+        if (!video.paused && !video.ended) {
+          animationFrame = requestAnimationFrame(renderOnAnimationFrame)
         }
       }
       const handleLoadedData = () => {
@@ -160,20 +195,21 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       }
       const handlePlaying = () => {
         callbacksRef.current.onPlay(video.duration - video.currentTime)
-        renderFrame()
-        setShowPoster(false)
-        animationFrame = requestAnimationFrame(renderWhilePlaying)
+        if (typeof video.requestVideoFrameCallback === 'function') {
+          videoFrameCallback = video.requestVideoFrameCallback(renderOnVideoFrame)
+        } else {
+          animationFrame = requestAnimationFrame(renderOnAnimationFrame)
+        }
       }
-      const handlePause = () => cancelAnimationFrame(animationFrame)
+      const handlePause = () => cancelRenderLoop()
       const handleEnded = () => {
-        cancelAnimationFrame(animationFrame)
+        cancelRenderLoop()
         renderFrame()
         callbacksRef.current.onEnded()
       }
       const handleError = () => {
         callbacksRef.current.onError('The ribbon animation could not be loaded.')
       }
-      video.addEventListener('loadeddata', handleLoadedData)
       video.addEventListener('loadeddata', handleLoadedData)
       video.addEventListener('loadedmetadata', handleLoadedMetadata)
       video.addEventListener('canplay', handleCanPlay)
@@ -187,7 +223,7 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) handleLoadedData()
 
       return () => {
-        cancelAnimationFrame(animationFrame)
+        cancelRenderLoop()
         video.removeEventListener('loadeddata', handleLoadedData)
         video.removeEventListener('loadedmetadata', handleLoadedMetadata)
         video.removeEventListener('canplay', handleCanPlay)
@@ -206,12 +242,18 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
     return (
       <>
         <img
-          className={`${className} z-[99] ${showPoster ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}
+          className={`${className} ${showPoster ? 'opacity-100' : 'opacity-0'}`}
+          style={{ zIndex: 101 }}
           src={`${import.meta.env.BASE_URL}RedRibbion-poster.webp`}
           alt=""
           aria-hidden="true"
         />
-        <canvas ref={canvasRef} className={className} aria-hidden="true" />
+        <canvas
+          ref={canvasRef}
+          className={`${className} ${showVideoCanvas ? 'opacity-100' : 'opacity-0'}`}
+          style={{ zIndex: 100 }}
+          aria-hidden="true"
+        />
         <video
           ref={videoRef}
           className="pointer-events-none fixed h-px w-px opacity-0"
