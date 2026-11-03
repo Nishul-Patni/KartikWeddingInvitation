@@ -57,7 +57,7 @@ function TapToOpenPage({ onOpenStart, onOpenComplete }: TapToOpenPageProps) {
         <div className="absolute top-[70%] left-0 z-[101] flex w-full justify-center">
           <WhiteKeyVideo
             ref={ribbonRef}
-            className="pointer-events-none fixed top-[calc(60dvh_-_25vw)] left-1/2 z-[100] block h-auto w-screen max-w-none -translate-x-1/2"
+            className="pointer-events-none fixed top-[calc(60dvh_-_25vw)] left-1/2 z-[100] block h-auto w-screen max-w-none -translate-x-1/2 portrait:scale-[1.5]"
             src={`${import.meta.env.BASE_URL}RedRibbion.mp4`}
             onPlay={(duration) => {
               onOpenStart(
