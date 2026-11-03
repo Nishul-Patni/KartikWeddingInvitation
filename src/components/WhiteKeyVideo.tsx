@@ -120,7 +120,6 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
 
       let animationFrame = 0
       let ready = false
-      let previewPositionSet = false
       let hasReportedReady = false
 
       const renderFrame = () => {
@@ -144,22 +143,13 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       }
       const handleLoadedData = () => {
         ready = true
-        if (!previewPositionSet && video.duration > 0) {
-          previewPositionSet = true
-          video.currentTime = Math.min(0.5, video.duration / 2)
-          return
-        }
         renderFrame()
-        setShowPoster(false)
-      }
-      const handleSeeked = () => {
-        renderFrame()
-        setShowPoster(false)
         if (!hasReportedReady) {
           hasReportedReady = true
           callbacksRef.current.onReady()
         }
       }
+      const handleCanPlay = () => handleLoadedData()
       const handlePlaying = () => {
         callbacksRef.current.onPlay(video.duration - video.currentTime)
         renderFrame()
@@ -175,9 +165,9 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       const handleError = () => {
         callbacksRef.current.onError('The ribbon animation could not be loaded.')
       }
-
       video.addEventListener('loadeddata', handleLoadedData)
-      video.addEventListener('seeked', handleSeeked)
+      video.addEventListener('loadeddata', handleLoadedData)
+      video.addEventListener('canplay', handleCanPlay)
       video.addEventListener('playing', handlePlaying)
       video.addEventListener('pause', handlePause)
       video.addEventListener('ended', handleEnded)
@@ -187,7 +177,7 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       return () => {
         cancelAnimationFrame(animationFrame)
         video.removeEventListener('loadeddata', handleLoadedData)
-        video.removeEventListener('seeked', handleSeeked)
+        video.removeEventListener('canplay', handleCanPlay)
         video.removeEventListener('playing', handlePlaying)
         video.removeEventListener('pause', handlePause)
         video.removeEventListener('ended', handleEnded)
