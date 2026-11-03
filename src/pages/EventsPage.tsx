@@ -59,6 +59,8 @@ function EventReveal({ children, className = "", frame = "cream", label }: Event
                             : "Ornate-Cream-Frame.webp",
                     )}
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                 />
             </picture>
             {children}
@@ -102,18 +104,24 @@ function EventsPage() {
                 src={publicAsset("events-page-background.webp")}
                 alt=""
                 aria-hidden="true"
+                loading="lazy"
+                decoding="async"
             />
             <img
                 className="events-flower events-flower-left"
                 src={publicAsset("flower-border-with-bell-left.webp")}
                 alt=""
                 aria-hidden="true"
+                loading="lazy"
+                decoding="async"
             />
             <img
                 className="events-flower events-flower-right"
                 src={publicAsset("flower-border-right.webp")}
                 alt=""
                 aria-hidden="true"
+                loading="lazy"
+                decoding="async"
             />
 
             <header className="events-header">
@@ -136,6 +144,8 @@ function EventsPage() {
                             src={publicAsset("ganesh-ji-icon.webp")}
                             alt=""
                             aria-hidden="true"
+                            loading="lazy"
+                            decoding="async"
                         />
                     </div>
                     <div className="event-copy">
@@ -166,6 +176,8 @@ function EventsPage() {
                             src={publicAsset("haldi-mahendi-icon.webp")}
                             alt=""
                             aria-hidden="true"
+                            loading="lazy"
+                            decoding="async"
                         />
                     </div>
                     <div className="event-copy">
@@ -201,6 +213,8 @@ function EventsPage() {
                             src={publicAsset("wedding-day-icon.webp")}
                             alt=""
                             aria-hidden="true"
+                            loading="lazy"
+                            decoding="async"
                         />
                     </div>
                     <div className="wedding-day-heading">
@@ -252,6 +266,8 @@ function EventsPage() {
                             src={publicAsset("reception-icon.webp")}
                             alt=""
                             aria-hidden="true"
+                            loading="lazy"
+                            decoding="async"
                         />
                     </div>
                     <div className="event-copy">

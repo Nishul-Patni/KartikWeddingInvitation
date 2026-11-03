@@ -189,7 +189,7 @@ function ScratchToReveal() {
             id="wedding-date"
             ref={sectionRef}
             className={`scratch-reveal relative isolate flex min-h-[100svh] w-full flex-col items-center overflow-hidden px-5 pb-12 pt-[clamp(36px,8vh,84px)] text-center text-maroon sm:px-8 ${isInView ? "is-in-view" : ""}`}
-            style={{ backgroundImage: `url("${publicAsset("scratch-to-reveal-bg-image.webp")}")` }}
+            style={isInView ? { backgroundImage: `url("${publicAsset("scratch-to-reveal-bg-image.webp")}")` } : undefined}
             aria-labelledby="scratch-reveal-title"
         >
             <div aria-hidden="true" className="scratch-reveal-wash absolute inset-0" />
@@ -199,6 +199,8 @@ function ScratchToReveal() {
                     className="scratch-reveal-mountain h-auto w-[clamp(100px,17vw,190px)] object-contain"
                     src={publicAsset("mountain.webp")}
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                 />
                 <span aria-hidden="true" className="mt-2 h-px w-[clamp(150px,34vw,300px)] bg-maroon/50" />
                 <h2
@@ -223,6 +225,8 @@ function ScratchToReveal() {
                     src={publicAsset("scratch-here-frame.webp")}
                     alt=""
                     draggable="false"
+                    loading="lazy"
+                    decoding="async"
                 />
                 <div className="absolute inset-x-[8%] top-[23%] z-20 flex h-[54%] w-[84%] flex-col items-center justify-center">
                     <p className="font-['Cormorant_Garamond',Georgia,serif] text-[clamp(1.1rem,3.8vw,2.2rem)] font-semibold italic leading-tight text-[#742d20]">
@@ -247,6 +251,8 @@ function ScratchToReveal() {
                             className="scratch-reveal-icon h-[clamp(38px,8vw,72px)] w-[clamp(38px,8vw,72px)] object-contain"
                             src={publicAsset("scratch-icon.webp")}
                             alt=""
+                            loading="lazy"
+                            decoding="async"
                         />
                         <span className="mt-1 font-['Cormorant_Garamond',Georgia,serif] text-[clamp(1.25rem,4vw,2rem)] font-semibold italic leading-tight text-[#742d20]">
                             Scratch to Reveal

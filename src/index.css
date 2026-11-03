@@ -107,6 +107,85 @@ body,
   overflow: hidden;
 }
 
+.asset-loader {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: 24px;
+  color: #742d20;
+  background:
+    radial-gradient(ellipse at center, rgb(255 249 237 / 76%), transparent 72%),
+    #eedcc2;
+  text-align: center;
+}
+
+.asset-loader-card {
+  display: flex;
+  width: min(100%, 420px);
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.asset-loader-flourish {
+  color: #9b432b;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.asset-loader-card h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.7rem, 7vw, 2.4rem);
+  font-weight: 600;
+}
+
+.asset-loader-card p {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.15rem;
+}
+
+.asset-loader-progress {
+  width: min(100%, 280px);
+  height: 8px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  color: #8f321f;
+  background: rgb(143 50 31 / 14%);
+  accent-color: #8f321f;
+}
+
+.asset-loader-progress::-webkit-progress-bar {
+  border-radius: 999px;
+  background: rgb(143 50 31 / 14%);
+}
+
+.asset-loader-progress::-webkit-progress-value {
+  border-radius: 999px;
+  background: #8f321f;
+}
+
+.asset-loader-percent {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+}
+
+.asset-loader-retry {
+  border: 1px solid #8f321f;
+  border-radius: 999px;
+  padding: 10px 24px;
+  color: #fff5e7;
+  background: #8f321f;
+  cursor: pointer;
+  font: inherit;
+}
+
+.asset-loader-retry:focus-visible {
+  outline: 2px solid #8f321f;
+  outline-offset: 4px;
+}
+
 .invitation-scene {
   position: absolute;
   inset: 0;
