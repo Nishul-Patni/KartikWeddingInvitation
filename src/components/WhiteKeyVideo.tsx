@@ -8,17 +8,18 @@ interface WhiteKeyVideoProps {
   src: string
   className: string
   onPlay: (duration: number) => void
+  onReady: () => void
   onEnded: () => void
   onError: (message: string) => void
 }
 
 const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
-  function WhiteKeyVideo({ src, className, onPlay, onEnded, onError }, ref) {
+  function WhiteKeyVideo({ src, className, onPlay, onReady, onEnded, onError }, ref) {
     const videoRef = useRef<HTMLVideoElement>(null)
     const canvasRef = useRef<HTMLCanvasElement>(null)
-    const callbacksRef = useRef({ onPlay, onEnded, onError })
+    const callbacksRef = useRef({ onPlay, onReady, onEnded, onError })
     const [showPoster, setShowPoster] = useState(true)
-    callbacksRef.current = { onPlay, onEnded, onError }
+    callbacksRef.current = { onPlay, onReady, onEnded, onError }
 
     useImperativeHandle(ref, () => ({
       play: () => {
@@ -120,6 +121,7 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       let animationFrame = 0
       let ready = false
       let previewPositionSet = false
+      let hasReportedReady = false
 
       const renderFrame = () => {
         if (!ready || video.videoWidth === 0 || video.videoHeight === 0) return
@@ -153,6 +155,10 @@ const WhiteKeyVideo = forwardRef<WhiteKeyVideoHandle, WhiteKeyVideoProps>(
       const handleSeeked = () => {
         renderFrame()
         setShowPoster(false)
+        if (!hasReportedReady) {
+          hasReportedReady = true
+          callbacksRef.current.onReady()
+        }
       }
       const handlePlaying = () => {
         callbacksRef.current.onPlay(video.duration - video.currentTime)

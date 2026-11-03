@@ -43,7 +43,11 @@ function App() {
   const [loadAttempt, setLoadAttempt] = useState(0);
   const [loadedImages, setLoadedImages] = useState(0);
   const [failedImages, setFailedImages] = useState<string[]>([]);
-  const [isReady, setIsReady] = useState(false);
+  const [imagesSettled, setImagesSettled] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
+  const isReady = imagesSettled
+    && failedImages.length === 0
+    && isVideoReady;
 
   useEffect(() => {
     let isCurrentAttempt = true;
@@ -69,7 +73,7 @@ function App() {
 
       const failures = results.filter((label): label is string => label !== null);
       setFailedImages(failures);
-      setIsReady(failures.length === 0);
+      setImagesSettled(true);
     };
 
     void loadCriticalImages();
@@ -78,60 +82,17 @@ function App() {
     };
   }, [loadAttempt]);
 
-  if (!isReady) {
-    const progress = Math.round((loadedImages / criticalImages.length) * 100);
-
-    return (
-      <main
-        className="asset-loader"
-        aria-busy={failedImages.length === 0}
-        aria-live="polite"
-      >
-        <div className="asset-loader-card">
-          <span className="asset-loader-flourish" aria-hidden="true">❧</span>
-          <h1>{failedImages.length > 0 ? "A little pause..." : "Preparing your invitation"}</h1>
-          {failedImages.length > 0 ? (
-            <>
-              <p role="alert">
-                Some images could not be loaded: {failedImages.join(", ")}.
-              </p>
-              <button
-                className="asset-loader-retry"
-                type="button"
-                onClick={() => {
-                  setLoadedImages(0);
-                  setFailedImages([]);
-                  setIsReady(false);
-                  setLoadAttempt((attempt) => attempt + 1);
-                }}
-              >
-                Try again
-              </button>
-            </>
-          ) : (
-            <>
-              <p>Just a moment while we get everything ready.</p>
-              <progress
-                className="asset-loader-progress"
-                value={loadedImages}
-                max={criticalImages.length}
-                aria-label="Loading invitation"
-              />
-              <span className="asset-loader-percent">{progress}%</span>
-            </>
-          )}
-        </div>
-      </main>
-    );
-  }
+  const loadedResources = loadedImages + Number(isVideoReady);
+  const totalResources = criticalImages.length + 1;
+  const progress = Math.round((loadedResources / totalResources) * 100);
 
   return (
     <div className="h-full min-h-dvh overflow-hidden bg-cream font-['Lora',serif] text-maroon">
       <div className="invitation-scenes">
         <div
-          aria-hidden={!isOpen}
+          aria-hidden={!isOpen || !isReady}
           className={`invitation-scene ${isOpening || isOpen ? "is-visible" : ""}`}
-          inert={!isOpen}
+          inert={!isOpen || !isReady}
           style={{ transitionDuration: `${transitionDuration}ms` }}
         >
           <FallingSakura>
@@ -139,12 +100,13 @@ function App() {
           </FallingSakura>
         </div>
         <div
-          aria-hidden={isOpen}
+          aria-hidden={isOpen || !isReady}
           className={`invitation-scene invitation-opening ${isOpening || isOpen ? "" : "is-visible"}`}
-          inert={isOpen}
+          inert={isOpen || !isReady}
           style={{ transitionDuration: `${transitionDuration}ms` }}
         >
           <TapToOpenPage
+            onVideoReady={() => setIsVideoReady(true)}
             onOpenStart={(duration) => {
               setTransitionDuration(duration);
               setIsOpening(true);
@@ -153,6 +115,48 @@ function App() {
           />
         </div>
       </div>
+      {!isReady && (
+        <main
+          className="asset-loader"
+          aria-busy={failedImages.length === 0}
+          aria-live="polite"
+        >
+          <div className="asset-loader-card">
+            <span className="asset-loader-flourish" aria-hidden="true">❧</span>
+            <h1>{failedImages.length > 0 ? "A little pause..." : "Preparing your invitation"}</h1>
+            {failedImages.length > 0 ? (
+              <>
+                <p role="alert">
+                  Some images could not be loaded: {failedImages.join(", ")}.
+                </p>
+                <button
+                  className="asset-loader-retry"
+                  type="button"
+                  onClick={() => {
+                    setLoadedImages(0);
+                    setFailedImages([]);
+                    setImagesSettled(false);
+                    setLoadAttempt((attempt) => attempt + 1);
+                  }}
+                >
+                  Try again
+                </button>
+              </>
+            ) : (
+              <>
+                <p>Just a moment while we get everything ready.</p>
+                <progress
+                  className="asset-loader-progress"
+                  value={loadedResources}
+                  max={totalResources}
+                  aria-label="Loading invitation"
+                />
+                <span className="asset-loader-percent">{progress}%</span>
+              </>
+            )}
+          </div>
+        </main>
+      )}
     </div>
   );
 }

@@ -2,11 +2,12 @@ import { useRef, useState } from 'react'
 import WhiteKeyVideo, { type WhiteKeyVideoHandle } from '../components/WhiteKeyVideo'
 
 interface TapToOpenPageProps {
+  onVideoReady: () => void
   onOpenStart: (durationMs: number) => void
   onOpenComplete: () => void
 }
 
-function TapToOpenPage({ onOpenStart, onOpenComplete }: TapToOpenPageProps) {
+function TapToOpenPage({ onVideoReady, onOpenStart, onOpenComplete }: TapToOpenPageProps) {
   const ribbonRef = useRef<WhiteKeyVideoHandle>(null)
   const songRef = useRef<HTMLAudioElement>(null)
   const [playbackError, setPlaybackError] = useState<string | null>(null)
@@ -69,8 +70,10 @@ function TapToOpenPage({ onOpenStart, onOpenComplete }: TapToOpenPageProps) {
                   : 2700,
               )
             }}
+            onReady={onVideoReady}
             onEnded={() => onOpenComplete()}
             onError={(message) => {
+              onVideoReady()
               setIsOpening(false)
               setPlaybackError(message)
             }}
