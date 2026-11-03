@@ -1,0 +1,43 @@
+- generic [ref=f10e4]:
+  - generic [aria-hidden]:
+    - generic:
+      - main:
+        - generic:
+          - generic:
+            - generic:
+              - paragraph: Together with our families
+              - heading [level=1]: We're getting married
+              - generic:
+                - generic [aria-hidden]: ♥
+            - region:
+              - generic:
+                - heading [level=2]: Kartik
+                - paragraph: Son of Mrs. Nanda Rawat & Mr. Bisan Singh Rawat
+              - paragraph [aria-hidden]: "&"
+              - generic:
+                - heading [level=2]: Priyanka
+                - paragraph: Daughter of Mrs. Rajni Mehta & Mr. Bishan Singh Mehta
+        - link:
+          - /url: "#wedding-date"
+          - generic: Scroll
+        - region:
+          - generic:
+            - heading [level=2]: A Special Reveal Awaits
+            - paragraph: There's something special for you... Scratch below to uncover it!
+            - generic [aria-hidden]: ~ ❧ ~
+          - generic:
+            - generic:
+              - paragraph: The Wedding Day
+              - paragraph: 24 November 2026
+            - generic: Scratch to Reveal
+          - button:
+            - generic: Save the Date
+          - button: Tap here if you can’t scratch
+  - main [ref=f10e6]:
+    - region "Wedding invitation":
+      - paragraph: Together with their families
+      - heading "Our Wedding Invitation" [level=1]:
+        - generic: Our
+        - generic: Wedding
+        - generic: Invitation
+      - button "Tap to Open" [ref=f10e7] [cursor=pointer]
