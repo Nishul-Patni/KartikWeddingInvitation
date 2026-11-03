@@ -9,6 +9,7 @@ const criticalImages = [
   { path: "first-page.webp", label: "invitation background" },
   { path: "groom-bride.webp", label: "couple illustration" },
   { path: "swastik.png", label: "invitation emblem" },
+  { path: "scratch-to-reveal-bg-image.webp", label: "scratch reveal background" },
 ];
 
 function preloadImage(path: string) {
