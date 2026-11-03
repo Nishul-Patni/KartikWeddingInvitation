@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 const pineResortMap = "https://maps.app.goo.gl/y5jwcZEruMLgAX8w5";
-const receptionMap = "https://maps.app.goo.gl/DQAV4pGSH7UxT49PA";
 import "./EventsPage.css";
 
 function publicAsset(path: string) {
@@ -138,7 +137,7 @@ function EventsPage() {
             </header>
 
             <div className="events-list">
-                <EventReveal label="22 November 2026: Ganesh Pooja and Suwal Patha">
+                <EventReveal label="22 November 2026: Ganesh Pooja and Suwal Pathai">
                     <div className="event-art">
                         <img
                             src={publicAsset("ganesh-ji-icon.webp")}
@@ -150,7 +149,7 @@ function EventsPage() {
                     </div>
                     <div className="event-copy">
                         <DateLabel>Day 01 · 22 November 2026</DateLabel>
-                        <h3>Ganesh Pooja &amp; Suwal Patha</h3>
+                        <h3>Ganesh Pooja &amp; Suwal Pathai</h3>
                         <p className="event-description">
                             Auspicious beginnings and cherished Kumaoni traditions.
                         </p>
@@ -224,23 +223,31 @@ function EventsPage() {
                     </div>
                     <ol className="wedding-timeline" aria-label="Wedding day schedule">
                         <li>
-                            <span className="timeline-motif" aria-hidden="true">❧</span>
+                            <span className="timeline-motif" aria-hidden="true">
+                                <img src={publicAsset("baraat.webp")} alt="" />
+                            </span>
                             <strong>11:00 AM</strong>
                             <span>Baraat departure</span>
                             <small>From the residence</small>
                         </li>
                         <li>
-                            <span className="timeline-motif" aria-hidden="true">✿</span>
+                            <span className="timeline-motif" aria-hidden="true">
+                                <img src={publicAsset("rateli.webp")} alt="" />
+                            </span>
                             <strong>12:00 PM</strong>
                             <span>Rateli</span>
                         </li>
                         <li>
-                            <span className="timeline-motif" aria-hidden="true">ॐ</span>
+                            <span className="timeline-motif" aria-hidden="true">
+                                <img src={publicAsset("panigrah.webp")} alt="" />
+                            </span>
                             <strong>Panigrahan Sanskar</strong>
                             <span>As per confirmed auspicious muhurat</span>
                         </li>
                         <li>
-                            <span className="timeline-motif" aria-hidden="true">❧</span>
+                            <span className="timeline-motif" aria-hidden="true">
+                                <img src={publicAsset("baraat-return.webp")} alt="" />
+                            </span>
                             <strong>5:00 PM</strong>
                             <span>Baraat return</span>
                         </li>
@@ -281,22 +288,10 @@ function EventsPage() {
                         <ul>
                             <li>
                                 <span className="event-detail-title">Time</span>
-                                <span>After 10:00 AM</span>
+                                <span>After 1:00 PM</span>
                             </li>
                         </ul>
-                        <Venue>Aashirwad Banquet Hall</Venue>
-                        <a
-                            className="events-map-link"
-                            href={receptionMap}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            View venue on Google Maps
-                            <svg aria-hidden="true" viewBox="0 0 16 16" fill="none">
-                                <path d="M9 2h5v5M14 2 7 9" />
-                                <path d="M12 9v4a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h4" />
-                            </svg>
-                        </a>
+                        <Venue>Aashirwad Banquet Hall</Venue>                        
                     </div>
                 </EventReveal>
             </div>

@@ -38,10 +38,11 @@ function MainPage() {
                             alt=""
                         />
                         <p className="mt-2 font-['Cormorant_Garamond',serif] text-[10px] font-medium uppercase tracking-[0.24em] text-terracotta sm:text-xs">
-                            Together with our families
+                            Together with our families 
                         </p>
-                        <h1 className="invitation-title mt-1 font-['Great_Vibes',cursive] text-[clamp(2.4rem,8vw,4.3rem)] leading-[1.05] text-[#633b34]">
-                            We&apos;re getting married
+                        <h1 className="invitation-title mt-1 font-['Great_Vibes',cursive] text-[clamp(1rem,3vw,3rem)] leading-[1.05] text-[#633b34]">
+                            We invite you
+                            <br /> To our Wedding
                         </h1>
                         <div className="invitation-divider mt-3 flex w-40 items-center gap-3 sm:mt-4 sm:w-52">
                             <span className="h-px flex-1 bg-terracotta/40" />
@@ -50,13 +51,13 @@ function MainPage() {
                         </div>
                     </header>
 
-                    <section aria-label="The happy couple" className="invitation-names mt-12 flex shrink-0 flex-col items-center sm:mt-16">
+                    <section aria-label="The happy couple" className="invitation-names mt-8 flex shrink-0 flex-col items-center sm:mt-9">
                         <div className="invitation-name-block">
                             <h2 className="font-['Great_Vibes',cursive] text-[clamp(3rem,11vw,5rem)] leading-[0.95] text-[#633b34]">
                                 Kartik
                             </h2>
                             <p className="invitation-family mt-1 max-w-[min(90vw,32rem)] font-['Cormorant_Garamond',serif] text-[clamp(0.82rem,3.3vw,1.08rem)] italic leading-snug text-terracotta">
-                                Son of Mrs. Nanda Rawat &amp; Mr. Bisan Singh Rawat
+                                Son of Mrs. Deepa Rawat &amp; Mr. Anand Singh Rawat
                             </p>
                         </div>
 
@@ -69,7 +70,7 @@ function MainPage() {
                                 Priyanka
                             </h2>
                             <p className="invitation-family mt-1 max-w-[min(90vw,32rem)] font-['Cormorant_Garamond',serif] text-[clamp(0.82rem,3.3vw,1.08rem)] italic leading-snug text-terracotta">
-                                Daughter of Mrs. Rajni Mehta &amp; Mr. Bishan Singh Mehta
+                                Daughter of Mrs. Rajni Mehta &amp; Mr. Dhan Singh Mehta
                             </p>
                         </div>
                     </section>

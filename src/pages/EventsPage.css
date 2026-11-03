@@ -414,6 +414,13 @@
   box-shadow: 0 0 0 4px rgb(255 223 160 / 12%);
 }
 
+.timeline-motif img {
+  width: 27px;
+  height: 27px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
 .wedding-timeline strong {
   color: #ffe2aa;
   font-size: clamp(0.9rem, 1.5vw, 1.08rem);
@@ -458,6 +465,23 @@
   text-decoration: underline;
   text-decoration-color: rgb(255 216 160 / 68%);
   text-underline-offset: 3px;
+}
+
+.baraat-route a {
+  border: 1px solid rgb(255 216 160 / 65%);
+  border-radius: 999px;
+  background: #8b2926;
+  padding: 3px 9px;
+  color: #fff2dd;
+  font-style: normal;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 200ms ease, transform 200ms ease;
+}
+
+.baraat-route a:hover {
+  background: #6f1e20;
+  transform: translateY(-1px);
 }
 
 .baraat-route a svg,
