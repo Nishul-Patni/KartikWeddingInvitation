@@ -37,6 +37,16 @@ body,
   scrollbar-color: rgb(143 50 31 / 35%) transparent;
 }
 
+.invitation-hero {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.invitation-couple {
+  min-height: 0;
+}
+
 .invitation-scroll-cue {
   position: absolute;
   z-index: 20;

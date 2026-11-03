@@ -23,13 +23,13 @@ function MainPage() {
     return (
         <main ref={scrollContainerRef} className="invitation-page relative h-[100svh] w-full overflow-x-hidden overflow-y-auto">
             <section
-                className="relative isolate flex min-h-[100svh] w-full flex-col items-center gap-2 overflow-hidden text-center text-maroon"
+                className="invitation-hero relative isolate flex h-[100svh] min-h-[100svh] w-full flex-col items-center gap-2 overflow-hidden text-center text-maroon"
                 style={{ backgroundImage: `url("${publicAsset("first-page.png")}")` }}
             >
                 <div aria-hidden="true" className="invitation-wash absolute inset-0" />
                 <div aria-hidden="true" className="invitation-frame absolute inset-[10px] sm:inset-[18px]" />
 
-                <div className="relative z-10 flex min-h-full w-full max-w-[760px] flex-col items-center">
+                <div className="invitation-hero-content relative z-10 flex h-full min-h-0 w-full max-w-[760px] flex-col items-center">
                     <header className="invitation-intro flex shrink-0 flex-col items-center">
                         <img
                             className="invitation-auspicious-mark h-9 w-9 object-contain sm:h-11 sm:w-11"
