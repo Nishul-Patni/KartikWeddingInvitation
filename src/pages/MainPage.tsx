@@ -72,7 +72,7 @@ function MainPage() {
                                 Priyanka
                             </h2>
                             <p className="invitation-family mt-1 max-w-[min(90vw,32rem)] font-['Cormorant_Garamond',serif] text-[clamp(0.82rem,3.3vw,1.08rem)] italic leading-snug text-terracotta">
-                                Daughter of Mrs. Rajni Mehta &amp; Mr. Dhan Singh Mehta
+                                Daughter of Mrs. Rajani Mehta &amp; Mr. Dhan Singh Mehta
                             </p>
                         </div>
                     </section>
