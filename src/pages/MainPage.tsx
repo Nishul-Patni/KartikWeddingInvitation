@@ -13,11 +13,7 @@ function MainPage() {
         if (!scrollContainer) return;
 
         const updateScrollCue = () => {
-            const invitationTop = scrollContainer.clientHeight;
-            setShowScrollCue(
-                scrollContainer.scrollTop >= invitationTop - 24
-                && scrollContainer.scrollTop < invitationTop + 24,
-            );
+            setShowScrollCue(scrollContainer.scrollTop < 24);
         };
 
         scrollContainer.addEventListener("scroll", updateScrollCue, { passive: true });

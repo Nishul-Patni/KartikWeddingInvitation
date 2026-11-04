@@ -161,7 +161,7 @@ function EventsPage() {
                                 <span>Morning, according to the auspicious muhurat.</span>
                             </li>
                             <li>
-                                <span className="event-detail-title">Suwal Patha</span>
+                                <span className="event-detail-title">Suwal Pathai</span>
                                 <span>As part of the day&apos;s traditional ceremonies.</span>
                             </li>
                         </ul>

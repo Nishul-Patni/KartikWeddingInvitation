@@ -245,7 +245,7 @@
 .event-details li {
   display: grid;
   grid-template-columns: max-content 1fr;
-  align-items: baseline;
+  align-items: center;
   gap: 4px 7px;
   color: #392722;
   font-family: "Cormorant Garamond", Georgia, serif;
