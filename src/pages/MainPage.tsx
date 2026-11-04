@@ -42,7 +42,7 @@ function MainPage() {
                         <p className="mt-2 font-['Cormorant_Garamond',serif] text-[10px] font-medium uppercase tracking-[0.24em] text-terracotta sm:text-xs">
                             Together with our families 
                         </p>
-                        <h1 className="invitation-title mt-1 font-['Great_Vibes',cursive] text-[clamp(1rem,3vw,3rem)] leading-[1.05] text-[#633b34]">
+                        <h1 className="invitation-title mt-1 font-['Great_Vibes',cursive] text-[clamp(1rem,8vw,2.5rem)] leading-[1.05] text-[#633b34]">
                             We invite you
                             <br /> To our Wedding
                         </h1>
