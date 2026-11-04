@@ -8,6 +8,8 @@ const criticalImages = [
   { path: "RedRibbion-poster.webp", label: "ribbon preview" },
   { path: "first-page.webp", label: "invitation background" },
   { path: "groom-bride.webp", label: "couple illustration" },
+  { path: "count-down-page/count-down-background.webp", label: "countdown background" },
+  { path: "count-down-page/kartik-priyanka-transparent.webp", label: "countdown couple portrait" },
   { path: "swastik.png", label: "invitation emblem" },
   { path: "scratch-to-reveal-bg-image.webp", label: "scratch reveal background" },
 ];

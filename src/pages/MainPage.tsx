@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import CountdownPage from "./CountdownPage";
 import EventsPage from "./EventsPage";
 import ScratchToReveal from "./ScratchToReveal";
 
@@ -12,7 +13,11 @@ function MainPage() {
         if (!scrollContainer) return;
 
         const updateScrollCue = () => {
-            setShowScrollCue(scrollContainer.scrollTop < 24);
+            const invitationTop = scrollContainer.clientHeight;
+            setShowScrollCue(
+                scrollContainer.scrollTop >= invitationTop - 24
+                && scrollContainer.scrollTop < invitationTop + 24,
+            );
         };
 
         scrollContainer.addEventListener("scroll", updateScrollCue, { passive: true });
@@ -24,6 +29,7 @@ function MainPage() {
     return (
         <main ref={scrollContainerRef} className="invitation-page relative h-[100svh] w-full overflow-x-hidden overflow-y-auto">
             <section
+                id="invitation"
                 className="invitation-hero relative isolate flex h-[100svh] min-h-[100svh] w-full flex-col items-center gap-2 overflow-hidden text-center text-maroon"
                 style={{ backgroundImage: `url("${publicAsset("first-page.webp")}")` }}
             >
@@ -82,27 +88,28 @@ function MainPage() {
                             alt="Illustration of Kartik and Priyanka in their wedding attire"
                         />
                     </div>
+                    <a
+                        className={`invitation-scroll-cue ${showScrollCue ? "is-visible" : "is-hidden"}`}
+                        href="#wedding-date"
+                        aria-label="Scroll to discover the wedding date"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            document.getElementById("wedding-date")?.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                            });
+                        }}
+                    >
+                        <span>Scroll</span>
+                        <svg aria-hidden="true" viewBox="0 0 32 20" fill="none">
+                            <path d="m4 4 12 12L28 4" />
+                        </svg>
+                    </a>
                 </div>
             </section>
-            <a
-                className={`invitation-scroll-cue ${showScrollCue ? "is-visible" : "is-hidden"}`}
-                href="#wedding-date"
-                aria-label="Scroll to discover the wedding date"
-                onClick={(event) => {
-                    event.preventDefault();
-                    document.getElementById("wedding-date")?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start",
-                    });
-                }}
-            >
-                <span>Scroll</span>
-                <svg aria-hidden="true" viewBox="0 0 32 20" fill="none">
-                    <path d="m4 4 12 12L28 4" />
-                </svg>
-            </a>
             <ScratchToReveal />
             <EventsPage />
+            <CountdownPage />
         </main>
     );
 }

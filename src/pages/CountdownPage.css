@@ -1,0 +1,322 @@
+.countdown-page {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 100svh;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  color: #fff3da;
+  background-color: #6d3338;
+  background-position: center;
+  background-size: cover;
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+.countdown-shade {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(62 23 30 / 62%) 0%, rgb(78 34 39 / 38%) 49%, rgb(78 34 39 / 8%) 100%),
+    linear-gradient(0deg, rgb(48 20 24 / 42%), transparent 48%);
+}
+
+.countdown-content {
+  position: relative;
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  align-items: center;
+  padding: clamp(34px, 6vh, 68px) clamp(36px, 9.5vw, 144px) clamp(42px, 7vh, 76px);
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 1500ms ease,
+    transform 1800ms cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.countdown-page.is-visible .countdown-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.countdown-copy {
+  position: relative;
+  z-index: 1;
+  width: min(58%, 620px);
+  text-align: center;
+  text-shadow: 0 2px 12px rgb(52 25 29 / 45%);
+}
+
+.countdown-eyebrow {
+  color: #ffe2aa;
+  font-size: clamp(1.2rem, 2.6vw, 1.8rem);
+  font-style: italic;
+}
+
+.countdown-copy h1 {
+  margin-top: 9px;
+  color: #fff5e0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(3rem, 6.3vw, 5.7rem);
+  font-weight: 500;
+  line-height: 0.98;
+}
+
+.countdown-copy h1 span {
+  color: #f5d17d;
+  font-style: italic;
+}
+
+.countdown-tagline {
+  margin-bottom: 18px;
+  font-size: clamp(1.1rem, 2.3vw, 1.6rem);
+  font-style: italic;
+}
+
+.countdown-timer {
+  display: grid;
+  width: min(100%, 500px);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0 auto;
+  padding: 8px 0;
+  background: rgb(111 38 39 / 64%);
+  box-shadow: 0 8px 18px rgb(49 21 24 / 22%);
+  text-shadow: none;
+}
+
+.countdown-unit {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: #fff4dc;
+}
+
+.countdown-value {
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.countdown-label {
+  color: #f5dcae;
+  font-size: clamp(0.55rem, 1vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.countdown-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 17px;
+  color: #fff0d0;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.countdown-date svg {
+  width: 19px;
+  height: 19px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.countdown-cta {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  border-radius: 999px;
+  padding: 7px 23px;
+  color: #fff3df;
+  background: #78282b;
+  box-shadow: 0 4px 11px rgb(49 21 24 / 30%);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-style: italic;
+  text-decoration: none;
+  text-shadow: none;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.countdown-cta:hover {
+  transform: translateY(-2px);
+  background: #5f1f24;
+}
+
+.countdown-cta:focus-visible {
+  outline: 2px solid #ffe2a1;
+  outline-offset: 4px;
+}
+
+.countdown-cta span {
+  color: #f1cf7c;
+  font-size: 1.3em;
+  font-style: normal;
+  line-height: 0.8;
+}
+
+.countdown-couple {
+  position: absolute;
+  right: clamp(4px, 5vw, 76px);
+  bottom: 0;
+  width: min(53%, 670px);
+  max-height: 88%;
+  object-fit: contain;
+  object-position: bottom right;
+  filter: drop-shadow(0 8px 12px rgb(52 25 29 / 26%));
+  pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  .countdown-shade {
+    background:
+      linear-gradient(180deg, rgb(74 31 37 / 54%) 0%, rgb(74 31 37 / 36%) 48%, rgb(74 31 37 / 10%) 100%),
+      linear-gradient(0deg, rgb(48 20 24 / 34%), transparent 60%);
+  }
+
+  .countdown-content {
+    display: grid;
+    grid-template-areas:
+      "eyebrow"
+      "names"
+      "tagline"
+      "timer"
+      "date"
+      "cta";
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    justify-items: center;
+    gap: 0;
+    padding: 28px 20px;
+  }
+
+  .countdown-copy {
+    display: contents;
+  }
+
+  .countdown-eyebrow {
+    grid-area: eyebrow;
+    align-self: end;
+    font-size: clamp(1.1rem, 4.6vw, 1.45rem);
+  }
+
+  .countdown-copy h1 {
+    grid-area: names;
+    margin-top: 5px;
+    font-size: clamp(2.5rem, 10.5vw, 3.8rem);
+    white-space: nowrap;
+  }
+
+  .countdown-couple {
+    right: auto;
+    bottom: 0;
+    left: 50%;
+    width: min(88%, 370px);
+    height: min(34svh, 290px);
+    max-height: none;
+    object-position: bottom center;
+    filter: drop-shadow(0 5px 9px rgb(52 25 29 / 24%));
+    transform: translateX(-50%);
+  }
+
+  .countdown-tagline {
+    grid-area: tagline;
+    margin: 3px 0 12px;
+    font-size: clamp(1.02rem, 4.2vw, 1.2rem);
+  }
+
+  .countdown-timer {
+    grid-area: timer;
+    width: min(100%, 470px);
+    padding: 7px 0;
+    background: rgb(111 38 39 / 58%);
+  }
+
+  .countdown-value {
+    font-size: clamp(1.35rem, 6.5vw, 1.9rem);
+  }
+
+  .countdown-label {
+    font-size: clamp(0.48rem, 2.2vw, 0.65rem);
+    letter-spacing: 0.08em;
+  }
+
+  .countdown-date {
+    grid-area: date;
+    margin-top: 12px;
+    font-size: clamp(0.78rem, 3.4vw, 1rem);
+    letter-spacing: 0.1em;
+  }
+
+  .countdown-date svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .countdown-cta {
+    grid-area: cta;
+    min-height: 42px;
+    margin-top: 12px;
+    padding-inline: 18px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .countdown-content {
+    padding-inline: 16px;
+  }
+
+  .countdown-couple {
+    height: min(31svh, 220px);
+  }
+}
+
+@media (max-height: 700px) and (max-width: 700px) {
+  .countdown-content {
+    padding-block: 16px;
+  }
+
+  .countdown-couple {
+    height: 16svh;
+  }
+
+  .countdown-cta {
+    margin-top: 8px;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 701px) {
+  .countdown-content {
+    padding-block: 25px 35px;
+  }
+
+  .countdown-tagline {
+    margin-bottom: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .countdown-content {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .countdown-cta {
+    transition: none;
+  }
+}
